@@ -1,0 +1,5 @@
+[
+	{
+		"keys": ["command+shift+x"], "command": "bin_viewer"
+	}
+]
