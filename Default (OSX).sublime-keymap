@@ -1,5 +1,6 @@
+// The key-binding is commented out to avoid conflicts with other plugins
+// For key-binding, copy the line below to the user keymap file, uncomment and change it if necessary
+
 [
-	{
-		"keys": ["command+shift+x"], "command": "bin_viewer"
-	}
+	//{"keys": ["command+shift+x"], "command": "bin_viewer"}
 ]
