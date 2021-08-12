@@ -7,5 +7,6 @@ A Sublime Text package that allows you to see the binary notation of a decimal o
 
 # Usage
 For usage via command pallete write `Bin Viewer: view_bin`.
-For usage via key binding open: `Preferences->Package Settings->Bin Viewer->Key Bindings – Default`
+
+For usage via key binding open: `Preferences->Package Settings->Bin Viewer->Key Bindings – Default`.
 
