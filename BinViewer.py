@@ -4,19 +4,43 @@ import textwrap
 
 class binViewerCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        region = self.view.sel()[0]
-        str_num = self.view.substr(region)
+        output = ""
+        for region in self.view.sel():
+            str_num = self.view.substr(region)
 
-        if self.isDec(str_num):
-            num = int(str_num)
-        elif self.isHex(str_num):
-            num = int(str_num, 16)
-        else:
+            if self.isDec(str_num):
+                num = int(str_num)
+            elif self.isHex(str_num):
+                num = int(str_num, 16)
+            else:
+                continue
+
+            bin_num = self.convertToBin(num)
+            content = '_'.join(textwrap.wrap(bin_num, width=8))
+            output += "<li>%s = %s</li>\n" % (str_num, content)
+
+        if output == "":
             return
 
-        bin_num = self.convertToBin(num)
-        content = '_'.join(textwrap.wrap(bin_num, width=8))
-        self.view.show_popup(content, location=-1, on_navigate=print, max_width=400)
+        html = """
+            <body>
+                <style>
+                    ul {
+                        margin: 0;
+                    }
+
+                    a {
+                        font-family: system;
+                        font-size: 1.05rem;
+                    }
+                </style>
+
+                <ul>
+                    %s
+                </ul>
+            </body>
+        """ % output
+        self.view.show_popup(html, max_width=512, on_navigate=print)
 
     def isDec(self, number):
         try:
@@ -52,6 +76,3 @@ class binViewerCommand(sublime_plugin.TextCommand):
             num_of_bits = 16
 
         return num_of_bits
-
-
-0xdeadbeef
