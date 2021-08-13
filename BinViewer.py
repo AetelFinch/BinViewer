@@ -1,5 +1,11 @@
+import sublime
 import sublime_plugin
 import textwrap
+
+
+def copy(view, text):
+    sublime.set_clipboard(text)
+    view.hide_popup()
 
 
 class binViewerCommand(sublime_plugin.TextCommand):
@@ -17,7 +23,7 @@ class binViewerCommand(sublime_plugin.TextCommand):
 
             bin_num = self.convertToBin(num)
             content = '_'.join(textwrap.wrap(bin_num, width=8))
-            output += "<li>%s = %s</li>\n" % (str_num, content)
+            output += "<li>%s = %s <a href='%s'>Copy</a> </li>\n" % (str_num, content, content)
 
         if output == "":
             return
@@ -40,7 +46,7 @@ class binViewerCommand(sublime_plugin.TextCommand):
                 </ul>
             </body>
         """ % output
-        self.view.show_popup(html, max_width=512, on_navigate=print)
+        self.view.show_popup(html, max_width=512, on_navigate=lambda x: copy(self.view, x))
 
     def isDec(self, number):
         try:
