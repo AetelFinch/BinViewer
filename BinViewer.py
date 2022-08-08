@@ -1,3 +1,4 @@
+import math
 import sublime
 import sublime_plugin
 import textwrap
@@ -74,11 +75,7 @@ class binViewerCommand(sublime_plugin.TextCommand):
         count_bits = number.bit_length()
         num_of_bits = 8
 
-        if count_bits > 32:
-            num_of_bits = 64
-        elif count_bits > 16:
-            num_of_bits = 32
-        elif count_bits > 8:
-            num_of_bits = 16
+        if count_bits > 8:
+            num_of_bits = 2 ** math.ceil(math.log2(count_bits))
 
         return num_of_bits
